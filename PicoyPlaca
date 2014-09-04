@@ -1,0 +1,130 @@
+class PicoyPlaca
+	$estado = 0
+	$digito = 0
+	$diadelasemana=0
+	def initialize()
+	end
+	def diaSemana(x)
+
+		anio = x[0,4]
+		mes = x[5,2]
+		dia = x[8,2]
+		#print dia+"/"+mes+"/"+anio+"\n"
+		anio=anio.to_i
+		mes=mes.to_i
+		dia=dia.to_i
+		
+		if mes<3
+			mes=mes+12
+		end
+		
+		if mes>=3
+			mes=mes-2
+		end
+		
+		# ALGORITMO DE ZELLER
+		siglo=(anio/100)
+		anioSiglo=anio%100
+		$diadelasemana=(dia+(13*mes-1)/5+anioSiglo+anioSiglo/4+siglo/4-2*siglo)%7
+		print "\nEl dia de la semana es:"
+		case $diadelasemana
+		when 0 then print "Domingo"
+		when 1 then print "Lunes"
+		when 2 then print "Martes"
+		when 3 then print "Miercoles"
+		when 4 then print "Jueves"
+		when 5 then print "Viernes"
+		when 6 then print "Sabado"
+		end		
+		print "\n"
+	end
+
+	def matricula(y)
+		
+		longitud=y.length
+		if longitud==7
+			$digito = y[6,1]
+			$digito=$digito.to_i
+			
+		else
+			$digito = y[7,1]
+			$digito=$digito.to_i
+			
+		end	
+		print "\n"	
+	end
+
+	def hora(z)
+
+		valor1 = z[0,2]
+		valor2 = z[3,2]
+		valor = valor1 + valor2
+		valor = valor.to_i
+		
+		if valor >= 700 && valor <= 930 || valor >= 1600 && valor <= 1900
+			$estado = 1
+		#	print $estado
+		else
+			$estado = 0
+		#	print $estado
+		end
+	end
+
+	def evaluacion()
+			
+		if $estado == 1 
+			if $diadelasemana == 1 && ($digito == 1 || $digito == 2)
+		 		print "\nSU AUTO NO PUEDE CIRCULAR"
+			
+		 	 	elsif $diadelasemana == 2 && ($digito == 3 || $digito == 4)
+				print "\nSU AUTO NO PUEDE CIRCULAR"
+			
+		 		elsif $diadelasemana == 3 && ($digito == 5 || $digito == 6)
+				print "\nSU AUTO NO PUEDE CIRCULAR"
+			
+		 	 	elsif $diadelasemana == 4 && ($digito == 7 || $digito == 8)
+				print "\nSU AUTO NO PUEDE CIRCULAR"
+			
+		 	 	elsif $diadelasemana == 5 && ($digito == 9 || $digito == 0)
+		 	 	print "\nSU AUTO NO PUEDE CIRCULAR"
+			else
+			print "\nSU AUTO SI PUEDE CIRCULAR"
+			end
+		else
+		print"\nSU AUTO SI PUEDE CIRCULAR"
+		end
+
+	end
+end
+continuar="s"
+while (continuar=="s") do
+print "--------------PROGRAMA PICO Y PLACA--------------\n\n"
+print "Ingrese la Fecha: (Formato: año/mes/dia  Ejem: 2014/02/02)\n"
+date = gets.chomp
+print "\nIngrese la matricula del vehiculo: (Formato: ABC-123 o ABC-1234)\n"
+nummatricula = gets.chomp
+print "\nIngrese la hora: (Formato: 00:00 a 23:59 horas)\n"
+horario = gets.chomp
+objeto=PicoyPlaca.new()
+print "\n\n-------RESULTADO-------\n"
+objeto.diaSemana(date)
+objeto.matricula(nummatricula)
+objeto.hora(horario)
+objeto.evaluacion()
+print "\n\n\nPresione 's' si desea realizar otra prediccion y 'n' si desea terminar\n" 
+continuar = gets.chomp
+
+while continuar != "s" && continuar!="n" do
+print "\n\nPresione 's' si desea realizar otra prediccion y 'n' si desea terminar\n" 
+continuar = gets.chomp
+end
+
+if continuar == "s"
+system "cls"
+end
+
+if continuar == "n"
+print "-----------FIN-----------"
+end
+end
+gets()
